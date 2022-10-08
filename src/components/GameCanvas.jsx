@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRef, useState, useEffect } from 'react'
-import drawMap from './perlin_noise/generateMap'
+import drawMap from '../perlin_noise/generateMap'
 
 const GameCanvas = () => {
   const canvasElem = useRef(null)
