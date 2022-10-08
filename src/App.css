@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-align: center;
 }
 
 .App-link {
@@ -35,4 +36,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+Header {
+  text-align: center;
+}
+
+.container {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 725px;
+}
+
+.info {
+  text-align: center;
 }

@@ -1,14 +1,16 @@
 import perlin from "./perlin";
-export default function drawMap(cnvs) {
+export function drawBorder(xPos, yPos, width, height,color, ctx, thickness = 1)
+{
+  let temp =color.split(',')
+  let newColor =  temp[0] +',' + temp[1] + ',' + (parseInt(temp[2]) - 10) + '%)'
+  ctx.fillStyle=newColor;
+  ctx.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2));
+}
+
+export function drawMap(cnvs) {
     cnvs.width = cnvs.height = 720;
     let ctx = cnvs.getContext('2d');
-    function drawBorder(xPos, yPos, width, height,color, thickness = 1)
-    {
-      let temp =color.split(',')
-      let newColor =  temp[0] +',' + temp[1] + ',' + (parseInt(temp[2]) - 10) + '%)'
-      ctx.fillStyle=newColor;
-      ctx.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2));
-    }
+
     const GRID_SIZE = 2
     const RESOLUTION = 16;
     const COLOR_SCALE = 255;
@@ -40,14 +42,14 @@ export default function drawMap(cnvs) {
             drawBorder(x / GRID_SIZE * cnvs.width,
                 y / GRID_SIZE * cnvs.width,
                 pixel_size,
-                pixel_size, color);
+                pixel_size, color, ctx);
         
             ctx.fillStyle = color;
             ctx.fillRect(
                 x / GRID_SIZE * cnvs.width,
                 y / GRID_SIZE * cnvs.width,
-                pixel_size,
-                pixel_size
+                pixel_size/2,
+                pixel_size/2
             );
             currentRow.push({
                 x:  x / GRID_SIZE * cnvs.width,
