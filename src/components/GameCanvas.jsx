@@ -71,13 +71,53 @@ const GameCanvas = ({timer, temperature }) => {
     if (fireTile != null) {
       fireTile['onFire'] = true
       setOnFire(fireTile)
-      console.log(fireTile, 'is on fire')
+      // console.log(fireTile, 'is on fire')
+    }
+    
+    function spreadFire(row, col) {
+      const neighborTiles = [
+        gameMap[row][col + 1],
+        gameMap[row][col - 1],
+        gameMap[row + 1][col],
+        gameMap[row - 1][col],
+      ]
+
+      let fireTile;
+      for (let tile in neighborTiles) {
+        if (tile.onFire) {continue}
+        let chance = Math.round(Math.random() * 100) / 100
+
+        if (tile.type === 'grass') {
+          if (chance <= new_spRate['grass']/100) {
+            fireTile = tile
+          }
+        }else if (tile.type === 'dryGrass') {
+          if (chance <= new_spRate['dryGrass']/100) {
+            fireTile = tile
+          }
+        }else if (tile.type === 'forest') {
+          if (chance <= new_spRate['forest']/100) {
+            fireTile = tile
+          }
+        }
+        setOnFire(fireTile)
+        console.log(fireTile)
+      }
+    }
+
+    for (let row = 0; row < gameMap.length; row ++) {
+      for (let col = 0; col < gameMap[row].length; col++) {
+        if (gameMap[row][col].onFire) {
+          // console.log(row, tileN)
+        }
+      }
     }
 
 
-    
 
   },0)
+
+
   return (
     <div>
       <canvas ref={canvasElem} className='gameCanvas'></canvas>
