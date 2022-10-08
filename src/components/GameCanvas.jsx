@@ -22,7 +22,7 @@ const GameCanvas = () => {
 	const [timer, setTime] = useState(0);
 	const [speed, setSpeed] = useState(1);
 	const [score, setScore] = useState(0);
-  const [message, setMessage] = useState("");
+	const [message, setMessage] = useState("");
 
 	// set constants
 	let new_igRate = Object.assign({}, IGNITE_RATE);
@@ -66,15 +66,20 @@ const GameCanvas = () => {
 		}
 	}, [temperature]);
 
-  useEffect(() => {
-    if (score == 20) {
-      console.log("Helicopter")
-    }
-  }, [score])
+	useEffect(() => {
+		if (score == 30) {
+			display_message(
+				"New tool Unlocked! Helicopter: extinguish mulitple fire at once"
+			);
+		}
+	}, [score]);
 
-  function display_message(message) {
-    
-  }
+	function display_message(message) {
+		setMessage(message);
+		setTimeout(() => {
+			setMessage("");
+		}, 5000);
+	}
 
 	function getNeighbors(row, col) {
 		const neighborTiles = [
@@ -124,6 +129,30 @@ const GameCanvas = () => {
 	function waterOnFire(event) {
 		let x = parseInt(event.nativeEvent.offsetX / gameMap[0][0].pixel_size);
 		let y = parseInt(event.nativeEvent.offsetY / gameMap[0][0].pixel_size);
+		if (score >= 30) {
+      extinguishFire(x, y);
+      if (x - 1 >= 0) {
+        x = x - 1
+        extinguishFire(x, y);
+      }
+      if (x + 1 >= 31) {
+        x = x + 1
+        extinguishFire(x, y);
+      }
+      if (y - 1 >= 0) {
+        y = y - 1
+        extinguishFire(x, y);
+      }
+      if (y + 1 >= 31) {
+        y = y + 1
+        extinguishFire(x, y);
+      }
+		} else {
+      extinguishFire(x, y);
+		}
+	}
+
+	function extinguishFire(x, y) {
 		let tile = gameMap[y][x];
 		if (tile.onFire != false) {
 			tile.onFire = false;
@@ -147,7 +176,7 @@ const GameCanvas = () => {
 			);
 			ctx.fillStyle = color;
 			ctx.fillRect(tile.x, tile.y, tile.pixel_size, tile.pixel_size);
-      setScore(score + 1);
+			setScore(score + 1);
 		}
 	}
 
@@ -185,14 +214,15 @@ const GameCanvas = () => {
 
 	return (
 		<div className="container">
+			<h1>Save the Land</h1>
 			<canvas
 				ref={canvasElem}
 				className="gameCanvas"
 				onClick={waterOnFire}
 			></canvas>
-      <div className="msg">
-        <h2>{ message }</h2>
-      </div>
+			<div className="msg">
+				<h2>{message}</h2>
+			</div>
 			<div className="info">
 				<h2>Time: {timer}</h2>
 				<h2>Temperature: {temperature}</h2>

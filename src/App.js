@@ -7,9 +7,7 @@ import './App.css'
 function App() {
   return (
     <>
-      <header>
-        <h1>Save the Land</h1>
-      </header>
+      
       <GameCanvas /> 
 
      
