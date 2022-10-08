@@ -1,12 +1,16 @@
-import logo from './logo.svg';
-import GameCanvas from './components/GameCanvas';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/home';
+import Info from './pages/info';
 
 function App() {
   
   return (
-    <div className="container">
-      <GameCanvas  /> 
-    </div>
+    <BrowserRouter><Routes>
+      <Route path='/'>
+        <Route index element={<Info />} /> {/** dev purposes, change to home later */}
+        <Route path='info' element={<Info />} />
+      </Route>
+    </Routes></BrowserRouter>
   );
 }
 
