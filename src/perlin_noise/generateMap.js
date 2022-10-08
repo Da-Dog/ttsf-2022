@@ -33,7 +33,7 @@ export default function drawMap(cnvs) {
                 type = 'grass'
                 color = 'hsl(75, 50%, 39%)' // grass
             } else {
-                type = 'dry grass'
+                type = 'dryGrass'
                 color = 'hsl(41, 60%, 60%)' // dry grass
             }
                  
@@ -53,7 +53,8 @@ export default function drawMap(cnvs) {
                 x:  x / GRID_SIZE * cnvs.width,
                 y:  y / GRID_SIZE * cnvs.width,
                 type,
-                pixel_size: pixel_size/2
+                pixel_size: pixel_size/2,
+                onFire: false
             })
             
             
