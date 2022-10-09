@@ -9,6 +9,9 @@ const SPREAD_RATE = {
     forest: 4, grass: 1, dryGrass: 4.4,
 };
 
+const gameoverSound = new Audio('gameover.mp3')
+const thunderSound = new Audio('thunder.mp3')
+
 const GameCanvas = () => {
     // set states and refs
     const canvasElem = useRef(null);
@@ -17,6 +20,7 @@ const GameCanvas = () => {
     const [timer, setTime] = useState(0);
     const [speed, setSpeed] = useState(1);
     const [score, setScore] = useState(0);
+	const [tracker, setTracker] = useState({spread:0, burn:0, ignite:0, lightning: 0})
     const [message, setMessage] = useState("");
 
     // set constants
@@ -60,7 +64,7 @@ const GameCanvas = () => {
                     for (let i = 1; i < interval_id; i++) {
                         window.clearInterval(i);
                     }
-
+					gameoverSound.play()
                     const ctx = canvasElem.current.getContext("2d");
                     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
                     ctx.fillRect(0, 0, canvasElem.current.width, canvasElem.current.height);
@@ -112,6 +116,8 @@ const GameCanvas = () => {
 							gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
 						}
 					}
+					thunderSound.play()
+					tracker['lightning'] = tracker['lightning'] + 1
 					display_message("Thunder strikes! Location: " + fireTile["x"] / fireTile["pixel_size"] + ", " + fireTile["y"] / fireTile["pixel_size"]);
 				}
 			}
@@ -164,7 +170,7 @@ const GameCanvas = () => {
             if (fireTile != null) {
                 fireTile["onFire"] = true;
                 setOnFire(fireTile);
-				console.log('spread')
+				tracker['spread'] = tracker['spread'] + 1
             }
         }
 		
@@ -172,7 +178,7 @@ const GameCanvas = () => {
 
     function burnTile(tile) {
         if (!tile.isDead) {
-			console.log('burn')
+			tracker['burn'] = tracker['burn'] + 1
             tile.isDead = true
             const ctx = canvasElem.current.getContext("2d");
             let color = 'hsl(44, 0%, 21%)';
@@ -251,7 +257,7 @@ const GameCanvas = () => {
         if (fireTile) {
             fireTile["onFire"] = true;
             setOnFire(fireTile);
-			console.log('ignite')
+			tracker['ignite'] = tracker['ignite'] + 1
         }
     };
 
@@ -292,6 +298,11 @@ const GameCanvas = () => {
                 - Speed
             </button>
         </div>
+		<ul className="data">
+			{Object.keys(tracker).map(key=> {
+				return (<li key={key + 'Count'}>{key}: {tracker[key]}</li>)
+			})}
+		</ul>
     </div>);
 };
 
