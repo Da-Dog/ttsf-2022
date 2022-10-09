@@ -221,7 +221,7 @@ const GameCanvas = () => {
 
     function extinguishFire(x, y) {
         let tile = gameMap[y][x];
-        if (tile.onFire !== false && tile.isDead === false) {
+        if (tile.onFire !== false && tile.isDead === false && tracker['percentDestroyed'] <= 0.949) {
             tile.onFire = false;
             const ctx = canvasElem.current.getContext("2d");
             let color;
@@ -276,11 +276,13 @@ const GameCanvas = () => {
 
     return (<div className="container">
         <h1>Save the Land</h1>
-        <canvas
-            ref={canvasElem}
-            className="gameCanvas"
-            onClick={waterOnFire}
-        ></canvas>
+        <div className="canvasWrap">
+            <canvas
+                ref={canvasElem}
+                className="gameCanvas"
+                onClick={waterOnFire}
+            ></canvas>
+        </div>
         <div className="msg">
             <h2>{message}</h2>
         </div>

@@ -10,6 +10,7 @@ const RulePage = () => {
 			</p>
 			<p>
         Fire can occurs randomly on your land and they can spread to neighboring squares.<br />
+        Click on the fire to extinguish it. <br />
         Your land can be destroyed if you didn't extinguish the fire in time<br />
         If 95% of your land are destroyed, you will lose the game. <br /> <br />
       </p>
@@ -27,6 +28,8 @@ const RulePage = () => {
       <p>
        <strong style={{color: 'blue'}}>Lightining</strong><br/>
         There will be lightning once in a while, they can ignite 4 squares around where it struck. <br/>
+        <strong style={{color: 'orangered'}}>Temperature</strong><br/>
+        The temperature can increase the chance that your land ignite and spread<br/>
         <strong style={{color: 'black'}}>Upgrade</strong><br/>
         You you get an upgrade when you extinguished 30 fire. You can extinguish 5 fire at a time after the upgrade
 
