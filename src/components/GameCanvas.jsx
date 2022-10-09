@@ -51,6 +51,27 @@ const GameCanvas = () => {
                         }
                     }
                 }
+
+                if (counter / 1024 >= 0.95) {
+                    // clear all intervals if game is over
+                    const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
+
+                    for (let i = 1; i < interval_id; i++) {
+                        window.clearInterval(i);
+                    }
+
+                    const ctx = canvasElem.current.getContext("2d");
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+                    ctx.fillRect(0, 0, canvasElem.current.width, canvasElem.current.height);
+                    ctx.font = "30px Arial";
+                    ctx.fillStyle = "white";
+                    ctx.textAlign = "center";
+                    ctx.fillText("Game Over", canvasElem.current.width / 2, canvasElem.current.height / 2);
+                    ctx.font = "20px Arial";
+                    ctx.fillText("Score: " + score, canvasElem.current.width / 2, canvasElem.current.height / 2 + 30);
+
+                    setMessage("");
+                }
             }, 1000);
             return function clearTime() {
                 clearInterval(spreadTimer);
