@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {drawBorder, drawMap} from "../perlin_noise/generateMap";
 
 const IGNITE_RATE = {
-    forest: 2, grass: 5, dryGrass: 10,
+    forest: 4, grass: 7, dryGrass: 12,
 };
 
 const SPREAD_RATE = {
@@ -28,42 +28,67 @@ const GameCanvas = () => {
         setMap(mapArr);
     }, []);
 
+	// spread and gameover timer
     useEffect(() => {
-		let spreadTimer = setInterval(() => {
-			for (let row = 0; row < gameMap.length; row++) {
-				for (let col = 0; col < gameMap[row].length; col++) {
-					if (gameMap[row][col].onFire) {
-						spreadFire(row, col);
-					}
-				}
-			}
-		}, 1000 / speed);
-		let gameOverCounter = setInterval(() => {
-			let counter = 0;
-			for (let row = 0; row < gameMap.length; row++) {
-				for (let col = 0; col < gameMap[row].length; col++) {
-					if (gameMap[row][col].onFire === true) {
-						counter++;
-					} else if (gameMap[row][col].isDead === true) {
-						counter++;
-					}
-				}
-			}
-		}, 1000);
-		return function clearTime() {
-			clearInterval(spreadTimer);
-			clearInterval(gameOverCounter);
-			// clear timeout of every tiles
-			const flatten_arr = gameMap.flat();
-			for (let tile of flatten_arr) {
-				if (tile["burnCd"]) {
-					clearInterval(tile['burnCd'])
-				}
-			}
-		};
-        
+        if (gameMap.length !== 0) {
+            let spreadTimer = setInterval(() => {
+                for (let row = 0; row < gameMap.length; row++) {
+                    for (let col = 0; col < gameMap[row].length; col++) {
+                        if (gameMap[row][col].onFire) {
+                            spreadFire(row, col);
+                        }
+                    }
+                }
+            }, 1000 / speed);
+            let gameOverCounter = setInterval(() => {
+                let counter = 0;
+
+                for (let row = 0; row < gameMap.length; row++) {
+                    for (let col = 0; col < gameMap[row].length; col++) {
+                        if (gameMap[row][col].onFire === true) {
+                            counter++;
+                        } else if (gameMap[row][col].isDead === true) {
+                            counter++;
+                        }
+                    }
+                }
+
+                if (counter / 1024 >= 0.95) {
+                    // clear all intervals if game is over
+                    const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
+
+                    for (let i = 1; i < interval_id; i++) {
+                        window.clearInterval(i);
+                    }
+
+                    const ctx = canvasElem.current.getContext("2d");
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+                    ctx.fillRect(0, 0, canvasElem.current.width, canvasElem.current.height);
+                    ctx.font = "30px Arial";
+                    ctx.fillStyle = "white";
+                    ctx.textAlign = "center";
+                    ctx.fillText("Game Over", canvasElem.current.width / 2, canvasElem.current.height / 2);
+                    ctx.font = "20px Arial";
+                    ctx.fillText("Score: " + score, canvasElem.current.width / 2, canvasElem.current.height / 2 + 30);
+
+                    setMessage("");
+                }
+            }, 1000);
+            return function clearTime() {
+                clearInterval(spreadTimer);
+                clearInterval(gameOverCounter);
+                // clear timeout of every tiles
+                const flatten_arr = gameMap.flat();
+                for (let tile of flatten_arr) {
+                    if (tile["burnCd"]) {
+                        clearInterval(tile['burnCd'])
+                    }
+                }
+            };
+        }
     }, [gameMap, speed]);
 
+	// thunder and ignite timer
     useEffect(() => {
         let time = timer;
         let myTimer = setInterval(() => {
@@ -82,8 +107,10 @@ const GameCanvas = () => {
 					fireTile["onFire"] = true;
 					setOnFire(fireTile);
 					for (let tile of getNeighbors(fireTile["x"] / fireTile["pixel_size"], fireTile["y"] / fireTile["pixel_size"])) {
-						setOnFire(tile);
-						gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
+						if (!tile.onFire && !tile.isDead) {
+							setOnFire(tile);
+							gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
+						}
 					}
 					display_message("Thunder strikes! Location: " + fireTile["x"] / fireTile["pixel_size"] + ", " + fireTile["y"] / fireTile["pixel_size"]);
 				}
@@ -137,12 +164,15 @@ const GameCanvas = () => {
             if (fireTile != null) {
                 fireTile["onFire"] = true;
                 setOnFire(fireTile);
+				console.log('spread')
             }
         }
+		
     }
 
     function burnTile(tile) {
         if (!tile.isDead) {
+			console.log('burn')
             tile.isDead = true
             const ctx = canvasElem.current.getContext("2d");
             let color = 'hsl(44, 0%, 21%)';
@@ -221,6 +251,7 @@ const GameCanvas = () => {
         if (fireTile) {
             fireTile["onFire"] = true;
             setOnFire(fireTile);
+			console.log('ignite')
         }
     };
 
