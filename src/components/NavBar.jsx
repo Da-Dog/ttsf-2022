@@ -10,7 +10,7 @@ const Nav = styled.nav`
     top: 0;
     width: 100%;
     height: 100px;
-    font-family: roboto;
+    font-family: ubunto;
     font-size: 18px;
     font-weight: bold;
 `
@@ -25,7 +25,7 @@ const NavLink = styled(link)`
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
     &.active {
         color: #000000;
@@ -38,10 +38,11 @@ const NavButton = styled.div`
 `
 
 const NavButtonLink = styled(NavLink)`
-    border-radius: 3px;
+    border-radius: 4px;
     margin: 20px;
     background: #FFFFFF;
     color: #654321;
+    text-decoration: none;
     justify-content: space-between;
     cursor: pointer;
     &:hover {
