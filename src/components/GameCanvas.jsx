@@ -32,53 +32,56 @@ const GameCanvas = () => {
         setMap(mapArr);
     }, []);
 
+	// spread timer
     useEffect(() => {
-        if (gameMap.length !== 0) {
-            let spreadTimer = setInterval(() => {
-                for (let row = 0; row < gameMap.length; row++) {
-                    for (let col = 0; col < gameMap[row].length; col++) {
-                        if (gameMap[row][col].onFire) {
-                            spreadFire(row, col);
-                        }
-                    }
-                }
-            }, 700 / speed);
-            return function clearTime() {
-                clearInterval(spreadTimer);
-				// clear timeout of every tiles
-				const flatten_arr = gameMap.flat();
-				for (let tile of flatten_arr) {
-					if (tile["burnCd"]) {
-						clearInterval(tile['burnCd'])
+
+		let spreadTimer = setInterval(() => {
+			for (let row = 0; row < gameMap.length; row++) {
+				for (let col = 0; col < gameMap[row].length; col++) {
+					if (gameMap[row][col].onFire) {
+						spreadFire(row, col);
 					}
 				}
-            };
-        }
+		}}, 1000 / speed)
+			
+		return function clearTime() {
+			clearInterval(spreadTimer);
+			// clear timeout of every tiles
+			const flatten_arr = gameMap.flat();
+			for (let tile of flatten_arr) {
+				if (tile["burnCd"]) {
+					clearInterval(tile['burnCd'])
+				}
+			}
+		};
     }, [gameMap, speed]);
 
+	// general timer and lightning
     useEffect(() => {
         let time = timer;
         let myTimer = setInterval(() => {
             time = time + 0.1 * speed;
             setTime((Math.round(time * 10) / 10));
-            setTemp(temperature < 120 ? Math.floor(time / 20) + 75 : 120);
+            setTemp(temperature < 120 ? Math.floor(time / 10) + 75 : 120);
             runOnTime();
         }, 100);
         let thunder = setInterval(() => {
-            const flatten_arr = gameMap.flat();
-            let fireTile =
-                flatten_arr[Math.floor(Math.random() * flatten_arr.length)];
-
-            if (fireTile) {
-                fireTile["onFire"] = true;
-                setOnFire(fireTile);
-                for (let tile of getNeighbors(fireTile["x"] / fireTile["pixel_size"], fireTile["y"] / fireTile["pixel_size"])) {
-                    setOnFire(tile);
-                    gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
-                }
-                display_message("Thunder strikes! Location: " + fireTile["x"] / fireTile["pixel_size"] + ", " + fireTile["y"] / fireTile["pixel_size"]);
-            }
-        }, (Math.round(Math.random() * (30 - 10 + 1)) * 1000));
+			let chance = Math.random() * 100
+			if (chance < 3) {
+				const flatten_arr = gameMap.flat();
+				let fireTile = flatten_arr[Math.floor(Math.random() * flatten_arr.length)];
+				
+				if (fireTile) {
+					fireTile["onFire"] = true;
+					setOnFire(fireTile);
+					for (let tile of getNeighbors(fireTile["x"] / fireTile["pixel_size"], fireTile["y"] / fireTile["pixel_size"])) {
+						setOnFire(tile);
+						gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
+					}
+					display_message("Thunder strikes! Location: " + fireTile["x"] / fireTile["pixel_size"] + ", " + fireTile["y"] / fireTile["pixel_size"]);
+				}
+			}
+        }, 1000);
         return function clearTime() {
             clearInterval(myTimer);
             clearInterval(thunder);
@@ -230,7 +233,7 @@ const GameCanvas = () => {
         const randomTile =
             flatten_arr[Math.floor(Math.random() * flatten_arr.length)];
 
-        const chance = (Math.round(Math.random() * 50) + 1) / 100;
+        const chance = (Math.round(Math.random() * 100)) / 100;
         let fireTile;
         if (chance <= new_igRate[randomTile.type] / 100 && !randomTile.onFire && !randomTile.isDead) {
             fireTile = randomTile;
@@ -264,7 +267,7 @@ const GameCanvas = () => {
                 onClick={waterOnFire}
             ></canvas>
             <div className="msg">
-                <h2>{message}</h2>
+                <h3>{message}</h3>
             </div>
             <div className="info">
                 <h2>Time: {timer.toFixed(1)}</h2>
