@@ -1,9 +1,10 @@
 import React from "react";
-import { ChevronDown } from "react-bootstrap-icons"
+import { ChevronDown } from "react-bootstrap-icons";
 import styled from "styled-components"; 
-import FadedBackground from "../components/Background"
+import FadedBackground from "../components/Background";
 import NavBar from "../components/NavBar";
-import Doc1 from "../components/Doc"
+import Doc1 from "../components/Doc";
+import * as Containers from "../components/Containers";
 
 function Header({className, children}) {
     return (
@@ -22,41 +23,6 @@ const StyledHeader = styled(Header)`
     margin: 0%;
 `
 
-const Spacer = styled.div`
-    flex-grow: 1;
-    /* margin-top: 25vh; */
-`
-
-const FullWidthContainer = styled.div`
-    width: 100%;
-`
-const FullParentContainer = styled(FullWidthContainer)`
-    height: 100%
-`
-
-const FlexContainer = styled(FullParentContainer)`
-    display: flex;
-    flex-direction: ${props => props?.direction ? props.direction : 'column'};
-    gap: ${props => props?.gap || 0}px;
-    align-items: center;
-    ${props => props?.width && ('width: ' + props.width + ';')}
-    ${props => props?.height && ('height: ' + props.height + ';')}
-`
-
-function CenteredContainer({className, children}) {
-    return (
-        <FlexContainer className={className}>
-            <Spacer></Spacer>
-            <FullWidthContainer>
-                <FlexContainer gap={1}>
-                    {children}
-                </FlexContainer>
-            </FullWidthContainer>
-            <Spacer></Spacer>
-        </FlexContainer>
-    )    
-}
-
 const StyledTitle = styled.h1`
     color: white;
     font-size: 4rem;
@@ -70,18 +36,15 @@ const StyledSubtitle = styled.p`
     padding: 0%;
 `
 
-const CenterAlginedFlexContainer = styled(FlexContainer)`
-    align-items: center;
-    justify-content: center;
-`
+
 
 function NavigationButtonContainer({className, children}) {
     return (
-        <FullWidthContainer className={className}>
-            <CenterAlginedFlexContainer direction='row' gap={1}>
+        <Containers.FullWidth className={className}>
+            <Containers.CenterAlginedFlex direction='row' gap={1}>
                 {children}
-            </CenterAlginedFlexContainer>
-        </FullWidthContainer>
+            </Containers.CenterAlginedFlex>
+        </Containers.FullWidth>
     )
 }
 
@@ -105,6 +68,11 @@ const NavigationButton = styled.button`
     }
 `
 
+const PreventionTitle = styled.h1`
+    color: black;
+
+`
+
 function Info() {
 
     return(
@@ -113,13 +81,13 @@ function Info() {
                 image="https://www.fresnobee.com/latest-news/oewnev/picture253495194/alternates/LANDSCAPE_1140/CaliforniaWildfires.JPG"
                 blurRate={2}
             >
-                <CenteredContainer>
-                    <FlexContainer height="fit-content" gap={1}>
+                <Containers.Centered>
+                    <Containers.Flex height="fit-content" gap={1}>
                         <StyledTitle>Wild Fires</StyledTitle>
                         <StyledSubtitle>As a result of climate change.</StyledSubtitle>
                         <StyledSubtitle>Wildfires sprang up in many areas of the world.</StyledSubtitle>
                         <StyledSubtitle>Destroying 18,000 structures and causing 28 billion in capital losts in California alone. </StyledSubtitle>
-                    </FlexContainer>
+                    </Containers.Flex>
                     <StyledNavigationButtonContainer>
                         <NavigationButton>
                             Learn more
@@ -128,8 +96,18 @@ function Info() {
                             Interactive Game
                         </NavigationButton>
                     </StyledNavigationButtonContainer>
-                </CenteredContainer>
+                </Containers.Centered>
             </FadedBackground>
+            <Containers.PageSection>
+                <div>
+                    <PreventionTitle>
+                        Prevention when camping
+                    </PreventionTitle>
+                </div>
+                <div>
+                    World
+                </div>
+            </Containers.PageSection>
             {/* <NavBar></NavBar> */}
             <Doc1></Doc1>
         </div>
