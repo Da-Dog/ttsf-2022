@@ -19,7 +19,7 @@ const GameCanvas = () => {
     const [timer, setTime] = useState(0);
     const [speed, setSpeed] = useState(1);
     const [score, setScore] = useState(0);
-	const [tracker, setTracker] = useState({spread:0, burn:0, ignite:0, lightning: 0, percentDestroyed: 0})
+	const [tracker] = useState({spread:0, burn:0, ignite:0, lightning: 0, percentDestroyed: 0})
     const [message, setMessage] = useState("");
 
     // set constants
@@ -301,9 +301,11 @@ const GameCanvas = () => {
             </button>
         </div>
 		<ul className="data">
-			{Object.keys(tracker).map(key=> {
-				return (<li key={key + 'Count'}>{key}: {tracker[key]}</li>)
-			})}
+            <li key="spread">Spread: {tracker["spread"]}</li>
+            <li key="burn">Burn: {tracker["burn"]}</li>
+            <li key="ignite">Ignite: {tracker["ignite"]}</li>
+            <li key="lightning">Lightning: {tracker["lightning"]}</li>
+            <li key="percentDestroyed">PercentDestroyed: {tracker["percentDestroyed"]*100}%</li>
 		</ul>
     </div>);
 };
