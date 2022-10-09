@@ -56,7 +56,8 @@ export function drawMap(cnvs) {
                 y:  y / GRID_SIZE * cnvs.width,
                 type,
                 pixel_size: pixel_size/2,
-                onFire: false
+                onFire: false,
+                isDead: false,
             })
             
             

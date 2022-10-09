@@ -91,6 +91,7 @@ const GameCanvas = () => {
 		return neighborTiles;
 	}
 
+
 	function spreadFire(row, col) {
 		const neighbors = getNeighbors(row, col);
 
@@ -124,28 +125,18 @@ const GameCanvas = () => {
 		);
 		ctx.fillStyle = "rgb(235, 143, 52)";
 		ctx.fillRect(tile.x, tile.y, tile.pixel_size, tile.pixel_size);
+
+		// burnTile(tile)
 	}
 
 	function waterOnFire(event) {
-		let x = parseInt(event.nativeEvent.offsetX / gameMap[0][0].pixel_size);
-		let y = parseInt(event.nativeEvent.offsetY / gameMap[0][0].pixel_size);
+		const pix_size = gameMap[0][0].pixel_size
+		let x = parseInt(event.nativeEvent.offsetX / pix_size );
+		let y = parseInt(event.nativeEvent.offsetY / pix_size);
 		if (score >= 30) {
-			extinguishFire(x, y);
-			if (x - 1 >= 0) {
-				x = x - 1
-				extinguishFire(x, y);
-			}
-			if (x + 1 >= 31) {
-				x = x + 1
-				extinguishFire(x, y);
-			}
-			if (y - 1 >= 0) {
-				y = y - 1
-				extinguishFire(x, y);
-			}
-			if (y + 1 >= 31) {
-				y = y + 1
-				extinguishFire(x, y);
+			extinguishFire(x,y)
+			for (let tile of getNeighbors(x, y)) {
+				extinguishFire(tile.y / pix_size, tile.x/pix_size);
 			}
 		} else {
       		extinguishFire(x, y);
