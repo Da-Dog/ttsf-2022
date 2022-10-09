@@ -10,7 +10,7 @@ const RulePage = () => {
 			</p>
 			<p>
         Fire can occurs randomly on your land and they can spread to neighboring squares.<br />
-        Click on the fire to extinguish it. <br />
+        Click on the fire to extinguish it. <br />You will win the game if you survived for 300 seconds <br/>
         Your land can be destroyed if you didn't extinguish the fire in time<br />
         If 85% of your land are destroyed, you will lose the game. <br /> <br />
       </p>
