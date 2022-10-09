@@ -130,25 +130,25 @@ const GameCanvas = () => {
 		let x = parseInt(event.nativeEvent.offsetX / gameMap[0][0].pixel_size);
 		let y = parseInt(event.nativeEvent.offsetY / gameMap[0][0].pixel_size);
 		if (score >= 30) {
-      extinguishFire(x, y);
-      if (x - 1 >= 0) {
-        x = x - 1
-        extinguishFire(x, y);
-      }
-      if (x + 1 >= 31) {
-        x = x + 1
-        extinguishFire(x, y);
-      }
-      if (y - 1 >= 0) {
-        y = y - 1
-        extinguishFire(x, y);
-      }
-      if (y + 1 >= 31) {
-        y = y + 1
-        extinguishFire(x, y);
-      }
+			extinguishFire(x, y);
+			if (x - 1 >= 0) {
+				x = x - 1
+				extinguishFire(x, y);
+			}
+			if (x + 1 >= 31) {
+				x = x + 1
+				extinguishFire(x, y);
+			}
+			if (y - 1 >= 0) {
+				y = y - 1
+				extinguishFire(x, y);
+			}
+			if (y + 1 >= 31) {
+				y = y + 1
+				extinguishFire(x, y);
+			}
 		} else {
-      extinguishFire(x, y);
+      		extinguishFire(x, y);
 		}
 	}
 
