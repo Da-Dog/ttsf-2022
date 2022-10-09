@@ -70,7 +70,7 @@ const StyledNavigationButtonContainer = styled(NavigationButtonContainer)`
 `
 const NavigationButton = styled.button`
     height: 4rem;
-    width: 20%;
+    width: 100%;
     background: transparent;
     border-radius: 3px;
     border: 2px solid white;
