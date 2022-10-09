@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {HashRouter, Routes, Route, Link} from 'react-router-dom';
 import './App.css'
 import GameCanvas from './components/GameCanvas';
 import InfoPage from './components/InfoPage';
@@ -8,7 +8,7 @@ import RulePage from './components/RulePage';
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <header>
                 <nav className='navbar'>
                     <Link to="/">Home</Link>
@@ -23,8 +23,7 @@ function App() {
                 <Route path='/game' element={<GameCanvas/>}/>
                 <Route path='/rule' element={<RulePage/>}/>
             </Routes>
-
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
