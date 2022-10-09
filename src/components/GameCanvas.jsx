@@ -94,9 +94,9 @@ const GameCanvas = () => {
                     }
                 }
             }
-            let percentDestroyed = Math.round((counter / 1024)* 100) / 100
+            let percentDestroyed = Math.round((counter / 1024)* 1000) / 1000
             tracker['percentDestroyed'] = percentDestroyed
-            if (percentDestroyed >= 0.95) {
+            if (percentDestroyed >= 0.85) {
                 // clear all intervals if game is over
                 const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
 
@@ -332,7 +332,7 @@ const GameCanvas = () => {
             <li key="burn">Burn: {tracker["burn"]}</li>
             <li key="ignite">Ignite: {tracker["ignite"]}</li>
             <li key="lightning">Lightning: {tracker["lightning"]}</li>
-            <li key="percentDestroyed">PercentDestroyed: {tracker["percentDestroyed"]*100}%</li>
+            <li key="percentDestroyed">PercentDestroyed: {(tracker["percentDestroyed"]*100).toFixed(1)}%</li>
 		</ul>
     </div>);
 };
