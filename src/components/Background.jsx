@@ -6,10 +6,10 @@ const BackgroundContainer = styled.div`
     position: relative; 
     width: 100%;
     overflow: hidden;
-    height: ${window.innerHeight}px;
-    max-height: ${window.innerHeight}px;
-    margin: 0%;
-    padding: 0%;
+    height: ${window.innerHeight - 55}px;
+    max-height: ${window.innerHeight - 55}px;
+    margin: 0;
+    padding: 0;
 
     &::before {
         content: "";
@@ -32,8 +32,8 @@ const Background = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0%;
-    padding: 0%;
+    margin: 0;
+    padding: 0;
 
     &::before {
         content: "";

@@ -44,10 +44,9 @@ nav> a:hover{
 }
 
 .container {
-  margin: auto;
   text-align: center;
   justify-content: center;
-  margin-top: 1em;
+  margin: 1em auto auto;
 }
 
 /* Game Page */
