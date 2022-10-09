@@ -31,7 +31,6 @@ header {
 }
 
 .navbar > a {
-    font-weight: bold;
     display: flex;
     color: inherit;
     list-style: none;
@@ -108,6 +107,7 @@ nav > a:hover {
 
 /* Rule Page */
 
+
 .keys {
     border-top: 1px solid rgb(110, 110, 110);
     padding: 2em 3em;
@@ -117,7 +117,13 @@ nav > a:hover {
 }
 
 .rules {
+    font-weight: normal;
     line-height: 2;
+    font-size: 1.05em;
+}
+
+.rules span {
+  font-size: 1.1em;
 }
 
 

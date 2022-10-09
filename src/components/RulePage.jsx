@@ -22,61 +22,61 @@ const RulePage = () => {
 			</p>
 			<div className="keys">
 				<p>
-					<strong
+					<span
 						style={{ color: "white", backgroundColor: "darkgreen" }}
 					>
 						Dark Green Squares
-					</strong>
+					</span>
 					<br />
 					Forest, they have a low ignite rate but a high spread rate{" "}
 					<br />
-					<strong
+					<span
 						style={{ color: "white", backgroundColor: "green" }}
 					>
 						Green Squares
-					</strong>
+					</span>
 					<br />
 					Grass, they have a medium ignite rate but a medium spread
 					rate <br />
-					<strong
+					<span
 						style={{ color: "black", backgroundColor: "yellow" }}
 					>
 						Yellow Squares
-					</strong>
+					</span>
 					<br />
 					Dry grass, they have a high ignite rate and a high spread
 					rate <br />
-					<strong
+					<span
 						style={{ color: "white", backgroundColor: "brown" }}
 					>
 						Brown Squares
-					</strong>
+					</span>
 					<br />
 					Houses, they have high ignite rate but a low spread rate{" "}
 					<br />
 				</p>
 
 				<p>
-					<strong style={{ color: "white", backgroundColor: "blue" }}>
+					<span style={{ color: "white", backgroundColor: "blue" }}>
 						Lightining
-					</strong>
+					</span>
 					<br />
 					There will be lightning once in a while, they can ignite 4
 					squares around where it struck. <br />
-					<strong
+					<span
 						style={{ color: "white", backgroundColor: "orangered" }}
 					>
 						Temperature
-					</strong>
+					</span>
 					<br />
 					The temperature can increase the chance that your land
 					ignite and spread
 					<br />
-					<strong
+					<span
 						style={{ color: "white", backgroundColor: "black" }}
 					>
 						Upgrade
-					</strong>
+					</span>
 					<br />
 					You you get an upgrade when you extinguished 30 fire. You
 					can extinguish 5 fire at a time after the upgrade
