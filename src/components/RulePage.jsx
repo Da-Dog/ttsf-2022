@@ -82,6 +82,7 @@ const RulePage = () => {
 					can extinguish 5 fire at a time after the upgrade
 				</p>
 			</div>
+      <a className="playBtn" href="/game">Play The Game</a>
 		</div>
 	);
 };
