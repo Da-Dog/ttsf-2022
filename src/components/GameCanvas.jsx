@@ -46,6 +46,13 @@ const GameCanvas = () => {
             }, 700 / speed);
             return function clearTime() {
                 clearInterval(spreadTimer);
+				// clear timeout of every tiles
+				const flatten_arr = gameMap.flat();
+				for (let tile of flatten_arr) {
+					if (tile["burnCd"]) {
+						clearInterval(tile['burnCd'])
+					}
+				}
             };
         }
     }, [gameMap, speed]);
@@ -99,8 +106,8 @@ const GameCanvas = () => {
 		const neighbors = getNeighbors(row, col);
 
         for (let tile of neighbors) {
-            if (tile == null) {
-                return;
+            if (tile == null || tile.isDead) {
+                continue;
             }
             let fireTile;
             let chance = Math.round(Math.random() * 100) / 100;
@@ -116,6 +123,28 @@ const GameCanvas = () => {
         }
     }
 
+	function burnTile(tile) {
+		if (!tile.isDead) {
+			tile.isDead = true
+			const ctx = canvasElem.current.getContext("2d");
+            let color = 'hsl(44, 0%, 21%)';
+            drawBorder(
+                tile.x,
+                tile.y,
+                tile.pixel_size,
+                tile.pixel_size,
+                color, ctx
+            );
+            ctx.fillStyle = color;
+            ctx.fillRect(tile.x, tile.y, tile.pixel_size, tile.pixel_size);
+
+			if (tile['burnCd'] != null) {
+				clearInterval(tile['burnCd'])
+			}
+
+		}
+	}
+
 	function setOnFire(tile) {
 		const ctx = canvasElem.current.getContext("2d");
 		drawBorder(
@@ -128,6 +157,11 @@ const GameCanvas = () => {
 		);
 		ctx.fillStyle = "rgb(235, 143, 52)";
 		ctx.fillRect(tile.x, tile.y, tile.pixel_size, tile.pixel_size);
+		
+		tile['burnCd'] = (setTimeout(()=> {
+				burnTile(tile)
+			}, 10000))
+		
 	}
 
 	function waterOnFire(event) {
@@ -146,7 +180,7 @@ const GameCanvas = () => {
 
     function extinguishFire(x, y) {
         let tile = gameMap[y][x];
-        if (tile.onFire !== false) {
+        if (tile.onFire !== false && tile.isDead == false) {
             tile.onFire = false;
             const ctx = canvasElem.current.getContext("2d");
             let color;
@@ -169,6 +203,10 @@ const GameCanvas = () => {
             ctx.fillStyle = color;
             ctx.fillRect(tile.x, tile.y, tile.pixel_size, tile.pixel_size);
             setScore(score + 1);
+
+			if (tile['burnCd'] != null) {
+				clearInterval(tile['burnCd'])
+			}
         }
     }
 
@@ -179,7 +217,7 @@ const GameCanvas = () => {
 
         const chance = (Math.round(Math.random() * 50) + 1) / 100;
         let fireTile;
-        if (chance <= new_igRate[randomTile.type] / 100 && !randomTile.onFire) {
+        if (chance <= new_igRate[randomTile.type] / 100 && !randomTile.onFire && !randomTile.isDead) {
             fireTile = randomTile;
         }
 
