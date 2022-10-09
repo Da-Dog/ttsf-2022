@@ -18,7 +18,6 @@ const FullParentContainer = styled(FullWidthContainer)`
 const FlexContainer = styled(FullParentContainer)`
     display: flex;
     flex-direction: ${props => props?.direction ? props.direction : 'column'};
-    gap: ${props => props?.gap || 0}px;
     align-items: center;
     ${props => props?.width && ('width: ' + props.width + ';')}
     ${props => props?.height && ('height: ' + props.height + ';')}
