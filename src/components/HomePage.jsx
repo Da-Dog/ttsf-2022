@@ -58,7 +58,7 @@ const CenterAlginedFlexContainer = styled(FlexContainer)`
 function NavigationButtonContainer({className, children}) {
     return (
         <FullWidthContainer className={className}>
-            <CenterAlginedFlexContainer direction='row' gap={1}>
+            <CenterAlginedFlexContainer direction='row'>
                 {children}
             </CenterAlginedFlexContainer>
         </FullWidthContainer>
@@ -84,6 +84,10 @@ const NavigationButton = styled.button`
         transform: scale(1.1)
     }
 `
+const NavigationSpacer = styled.div`
+    width: 5vw;
+`
+
 
 function HomePage() {
 
@@ -106,6 +110,7 @@ function HomePage() {
                                 Learn More
                             </NavigationButton>
                         </Link>
+                        <NavigationSpacer></NavigationSpacer>
                         <Link to="/game" style={{color: "white", textDecoration: "none"}}>
                             <NavigationButton>
                                 Interactive Game
