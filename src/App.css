@@ -7,17 +7,19 @@
 body{
   height: 100vh;
   overflow-x: hidden;
-  background-color: rgb(170, 203, 160);
+  background-color: rgb(232, 232, 232);
 }
 
 header {
+  font-size: 1.14em;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: rgb(58, 48, 31);
-  color: rgb(220, 220, 220);
+  background-color: rgb(58,48,31);
+  color: rgb(232, 232, 232);
   align-items: center;
-  height: 55px;
+  height: 70px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .navbar {
@@ -27,7 +29,6 @@ header {
 }
 
 .navbar> a{
-  font-weight: bold;
   display: flex;
   color: inherit;
   list-style: none;
@@ -38,10 +39,11 @@ header {
 }
 
 nav> a:hover{
-  background-color:rgb(72, 59, 38) ;
+  background-color:hsl(38, 30%, 15%) ;
 }
 
 .container {
+  max-width: 1080px;
   margin: auto;
   text-align: center;
   justify-content: center;
@@ -54,6 +56,7 @@ nav> a:hover{
   display: block;
   margin: auto;
   margin-top: 1em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .info {
@@ -90,9 +93,25 @@ nav> a:hover{
   padding: 0.5em 1em;
 }
 
-
+.controls > button {
+  cursor: pointer;
+  background-color: rgb(116, 139, 47);
+  color: rgb(232, 232, 232);
+  border: 0;
+  font-size: 1em;
+}
+.controls > button:hover {
+  background-color:hsl(75, 47%, 34%) ;
+}
 /* Rule Page */
-
-
-
+.keys {
+  border-top: 1px solid rgb(110, 110, 110) ;
+  padding: 2em 3em;
+  margin: auto;
+  text-align: left;
+  line-height: 2;
+}
+.rules {
+  line-height: 2;
+}
 

@@ -74,7 +74,7 @@ const GameCanvas = () => {
 
     // Win State Timer
     useLayoutEffect(() => {
-        if (timer > 300) {
+        if (timer > 500) {
             const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
             for (let i = 1; i < interval_id; i++) {
                 window.clearInterval(i);
