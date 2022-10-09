@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ttsf-2022/static/css/main.5f9e1de0.css",
+    "main.js": "/ttsf-2022/static/js/main.5d34054f.js",
+    "index.html": "/ttsf-2022/index.html",
+    "main.5f9e1de0.css.map": "/ttsf-2022/static/css/main.5f9e1de0.css.map",
+    "main.5d34054f.js.map": "/ttsf-2022/static/js/main.5d34054f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5f9e1de0.css",
+    "static/js/main.5d34054f.js"
+  ]
+}
