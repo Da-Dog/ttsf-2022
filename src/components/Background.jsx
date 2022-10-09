@@ -6,8 +6,8 @@ const BackgroundContainer = styled.div`
     position: relative; 
     width: 100%;
     overflow: hidden;
-    height: ${window.innerHeight}px;
-    max-height: ${window.innerHeight}px;
+    height: ${window.innerHeight - 70}px;
+    max-height: ${window.innerHeight - 70}px;
     margin: 0;
     padding: 0;
 
