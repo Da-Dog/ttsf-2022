@@ -21,6 +21,7 @@ const GameCanvas = () => {
     const [score, setScore] = useState(0);
 	const [tracker] = useState({spread:0, burn:0, ignite:0, lightning: 0, percentDestroyed: 0})
     const [message, setMessage] = useState("");
+    const [paused, setPaused] = useState(false)
 
     // set constants
     let new_igRate = Object.assign({}, IGNITE_RATE);
@@ -38,6 +39,7 @@ const GameCanvas = () => {
     // initialize app
     useEffect(() => {
         const mapArr = drawMap(canvasElem.current);
+        setPaused(false)
         setMap(mapArr);
         
     }, []);
@@ -69,6 +71,29 @@ const GameCanvas = () => {
         }
 
     }, [gameMap])
+
+    // Win State Timer
+    useLayoutEffect(() => {
+        if (timer > 500) {
+            const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
+            for (let i = 1; i < interval_id; i++) {
+                window.clearInterval(i);
+            }
+            const ctx = canvasElem.current.getContext("2d");
+            ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+            ctx.fillRect(0, 0, canvasElem.current.width, canvasElem.current.height);
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("Sucess", canvasElem.current.width / 2, canvasElem.current.height / 2);
+            ctx.font = "20px Arial";
+            
+            setMessage("");
+            setPaused(true)
+        }
+
+    },[timer])
+
 
 	// spread and gameover timer
     useEffect(() => {
@@ -113,7 +138,7 @@ const GameCanvas = () => {
                 ctx.fillText("Game Over", canvasElem.current.width / 2, canvasElem.current.height / 2);
                 ctx.font = "20px Arial";
                 ctx.fillText("Score: " + score, canvasElem.current.width / 2, canvasElem.current.height / 2 + 30);
-
+                setPaused(true)
                 setMessage("");
             }
         }, 1000);
@@ -235,6 +260,7 @@ const GameCanvas = () => {
     }
 
     function waterOnFire(event) {
+        if (paused) {return}
         const pix_size = gameMap[0][0].pixel_size
         let x = parseInt(event.nativeEvent.offsetX / pix_size);
         let y = parseInt(event.nativeEvent.offsetY / pix_size);
