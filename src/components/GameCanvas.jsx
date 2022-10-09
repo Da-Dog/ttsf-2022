@@ -8,9 +8,9 @@ const IGNITE_RATE = {
 };
 
 const SPREAD_RATE = {
-    forest: 2,
-    grass: 0.5,
-    dryGrass: 2.2,
+    forest: 4,
+    grass: 1,
+    dryGrass: 4.4,
 };
 
 const GameCanvas = () => {
@@ -42,7 +42,6 @@ const GameCanvas = () => {
                         }
                     }
                 }
-                console.log("spread");
             }, 700 / speed);
             return function clearTime() {
                 clearInterval(spreadTimer);
@@ -65,8 +64,24 @@ const GameCanvas = () => {
             setTemp(temperature < 120 ? Math.floor(time / 20) + 75 : 120);
             runOnTime();
         }, 100);
+        let thunder = setInterval(() => {
+            const flatten_arr = gameMap.flat();
+            let fireTile =
+                flatten_arr[Math.floor(Math.random() * flatten_arr.length)];
+
+            if (fireTile) {
+                fireTile["onFire"] = true;
+                setOnFire(fireTile);
+                for (let tile of getNeighbors(fireTile["x"] / fireTile["pixel_size"], fireTile["y"] / fireTile["pixel_size"])) {
+                    setOnFire(tile);
+                    gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
+                }
+                display_message("Thunder strikes! Location: " + fireTile["x"] / fireTile["pixel_size"] + ", " + fireTile["y"] / fireTile["pixel_size"]);
+            }
+        }, (Math.round(Math.random() * (30 - 10 + 1)) * 1000));
         return function clearTime() {
             clearInterval(myTimer);
+            clearInterval(thunder);
         }
     }, [speed, gameMap]);
 
@@ -81,7 +96,7 @@ const GameCanvas = () => {
     useEffect(() => {
         if (score === 30) {
             display_message(
-                "New tool Unlocked! Helicopter: extinguish mulitple fire at once"
+                "New item unlocked! Helicopter: extinguish multiple fire at once"
             );
         }
     }, [score]);
@@ -180,7 +195,7 @@ const GameCanvas = () => {
 
     function extinguishFire(x, y) {
         let tile = gameMap[y][x];
-        if (tile.onFire !== false && tile.isDead == false) {
+        if (tile.onFire !== false && tile.isDead === false) {
             tile.onFire = false;
             const ctx = canvasElem.current.getContext("2d");
             let color;

@@ -1,5 +1,4 @@
 // by Joeiddon on https://github.com/joeiddon
-'use strict';
 let perlin = {
     rand_vect: function(){
         let theta = Math.random() * 2 * Math.PI;
