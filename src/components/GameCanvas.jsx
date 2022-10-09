@@ -349,6 +349,7 @@ const GameCanvas = () => {
             <button onClick={increaseSpeed} id="incSpeed">
                 + Speed
             </button>
+            <button onClick={()=> {window.location.reload();}}>Restart</button>
             <button onClick={decreaseSpeed} id="decSpeed">
                 - Speed
             </button>

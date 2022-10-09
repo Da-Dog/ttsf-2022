@@ -23,7 +23,7 @@ const FlexContainer = styled(FullParentContainer)`
     ${props => props?.height && ('height: ' + props.height + ';')}
 `
 
-function CenteredContainer({className, children}) {
+function CenteredContainer({ className, children }) {
     return (
         <FlexContainer className={className}>
             <Spacer></Spacer>
@@ -37,6 +37,11 @@ function CenteredContainer({className, children}) {
     )
 }
 
+const CenterAlginedFlexContainer = styled(FlexContainer)`
+    align-items: center;
+    justify-content: center;
+`
+
 const StyledTitle = styled.h1`
     color: white;
     font-size: 4rem;
@@ -48,11 +53,6 @@ const StyledSubtitle = styled.p`
     color: white;
     margin: 1px;
     padding: 0;
-`
-
-const CenterAlginedFlexContainer = styled(FlexContainer)`
-    align-items: center;
-    justify-content: center;
 `
 
 function NavigationButtonContainer({className, children}) {
@@ -75,13 +75,16 @@ const NavigationButton = styled.button`
     border-radius: 3px;
     border: 2px solid white;
     color: white;
-    margin: 0 0rem;
+    margin: 0;
     padding: 0.25em 3rem;
     font-size: large;
     font-weight: bold;
 
     &:hover {
-        transform: scale(1.1)
+        transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+        background-color: white;
+        color: black;
+        cursor: pointer;
     }
 `
 const NavigationSpacer = styled.div`

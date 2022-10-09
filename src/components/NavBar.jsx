@@ -15,11 +15,6 @@ const Nav = styled.nav`
     font-weight: bold;
 `
 
-const NavMenu = styled.div`
-    display: flex;
-    align-items: center;
-`
-
 const NavLink = styled(link)`
     color: #FFFFFF;
     display: flex;
