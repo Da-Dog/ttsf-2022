@@ -10,7 +10,6 @@ const SPREAD_RATE = {
 };
 
 const gameoverSound = new Audio('gameover.mp3')
-const thunderSound = new Audio('thunder.mp3')
 
 const GameCanvas = () => {
     // set states and refs
@@ -20,7 +19,7 @@ const GameCanvas = () => {
     const [timer, setTime] = useState(0);
     const [speed, setSpeed] = useState(1);
     const [score, setScore] = useState(0);
-	const [tracker, setTracker] = useState({spread:0, burn:0, ignite:0, lightning: 0})
+	const [tracker, setTracker] = useState({spread:0, burn:0, ignite:0, lightning: 0, percentDestroyed: 0})
     const [message, setMessage] = useState("");
 
     // set constants
@@ -56,8 +55,9 @@ const GameCanvas = () => {
                         }
                     }
                 }
-
-                if (counter / 1024 >= 0.95) {
+                let percentDestroyed = Math.round((counter / 1024)* 100) / 100
+                tracker['percentDestroyed'] = percentDestroyed
+                if (percentDestroyed >= 0.95) {
                     // clear all intervals if game is over
                     const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
 
@@ -116,7 +116,7 @@ const GameCanvas = () => {
 							gameMap[tile.y / fireTile["pixel_size"]][tile.x / fireTile["pixel_size"]]["onFire"] = true;
 						}
 					}
-					thunderSound.play()
+					
 					tracker['lightning'] = tracker['lightning'] + 1
 					display_message("Thunder strikes! Location: " + fireTile["x"] / fireTile["pixel_size"] + ", " + fireTile["y"] / fireTile["pixel_size"]);
 				}

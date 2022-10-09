@@ -10,11 +10,11 @@ function App() {
   return (
     <BrowserRouter>
       <header>
-        <nav>
-          <div className='navItem'><Link to="/">Home</Link></div>
-          <div className='navItem'><Link to="/info">Info</Link></div>
-          <div className='navItem'><Link to="/rule">Rule</Link></div>
-          <div className='navItem'><Link to="/game">Game</Link></div>
+        <nav className='navbar'>
+          <Link to="/">Home</Link>
+          <Link to="/info">Info</Link>
+          <Link to="/game">Game</Link>
+          <Link to="/rule">Rule</Link>
         </nav>
       </header>
       <Routes>
