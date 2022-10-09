@@ -1,11 +1,11 @@
 import React from 'react'
 
-const InfoPage = () => {
+const CurrentFiresPage = () => {
   return (
     <div>
-      Info
+      Current Fires Page
     </div>
   )
 }
 
-export default InfoPage
+export default CurrentFiresPage
