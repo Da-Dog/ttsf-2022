@@ -75,8 +75,8 @@ const NavigationButton = styled.button`
     border-radius: 3px;
     border: 2px solid white;
     color: white;
-    margin: 0 2rem;
-    padding: 0.25em 1em;
+    margin: 0 0rem;
+    padding: 0.25em 3rem;
     font-size: large;
     font-weight: bold;
 
